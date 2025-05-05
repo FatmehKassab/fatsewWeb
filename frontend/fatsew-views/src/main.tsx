@@ -6,6 +6,8 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import { DataProvider } from "./contexts/dataContext.tsx";
 import Users from "./pages/users/index.tsx";
 import Products from "./pages/products/index.tsx";
+import Home from "./pages/home/index.tsx";
+import Shop from "./pages/shop/index.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
@@ -15,6 +17,8 @@ createRoot(document.getElementById("root")!).render(
           <Route index element={<App />} />
           <Route path="/users" element={<Users />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
           {/* <Route path="/welcome" element={<Welcome />} />
         <Route path="/game" element={<Game />} />
         <Route path="/admin" element={<Admin />} /> */}

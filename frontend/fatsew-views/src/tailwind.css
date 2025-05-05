@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+@layer base {
+  :root {
+    --font-balsamiq: "Balsamiq Sans", cursive;
+    --gradient-white: linear-gradient(
+      180deg,
+      rgba(153, 153, 153, 0.2) 45.67%,
+      #fff 97.02%
+    );
+  }
+}
+
 @theme {
   --color-primary: #e25670;
   --color-secondary: #f8b89b;
@@ -9,6 +20,50 @@
   --color-white: #ffffff;
 }
 
+@layer utilities {
+  .font-balsamiq {
+    font-family: var(--font-balsamiq);
+  }
+  .bg-gradient-white {
+    background-image: var(--gradient-white);
+  }
+}
+
+body {
+  font-family: var(--font-balsamiq);
+}
+
+.slick-slide > div {
+  @apply pl-5;
+}
+.primary-btn,
+.border-btn {
+  color: white;
+  padding: 6px 20px;
+  border: none;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.primary-btn {
+  background-color: var(--color-primary);
+}
+.border-btn {
+  background-color: transparent;
+  border: 2px solid var(--color-white);
+}
+
+.faq-row {
+  @apply bg-primary rounded-xl mb-4;
+}
+
+.row-title {
+  @apply ml-5 text-2xl font-medium;
+}
+.row-content-text {
+  @apply font-extralight;
+}
 .App {
   text-align: center;
   padding: 20px;
