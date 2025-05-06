@@ -16,7 +16,7 @@ const Button = ({ type, title, icon, variant, onClick }: ButtonProps) => {
       onClick={onClick}
     >
       <span
-        className={`font-semibold group text-sm text-white cursor-pointer capitalize`}
+        className={`font-semibold group text-sm  cursor-pointer capitalize`}
       >
         {title}
       </span>

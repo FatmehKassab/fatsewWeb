@@ -16,7 +16,7 @@
   --color-secondary: #f8b89b;
   --color-tertiary: #4d9dac;
   --color-grey: #c2c2c2;
-  --color-textGrey: #454545;
+  --color-textGrey: #7e7b7b;
   --color-white: #ffffff;
 }
 
@@ -37,7 +37,8 @@ body {
   @apply pl-5;
 }
 .primary-btn,
-.border-btn {
+.border-btn,
+.secondary-btn {
   color: white;
   padding: 6px 20px;
   border: none;
@@ -49,11 +50,24 @@ body {
 .primary-btn {
   background-color: var(--color-primary);
 }
+.secondary-btn {
+  background-color: var(--color-secondary);
+}
 .border-btn {
   background-color: transparent;
   border: 2px solid var(--color-white);
 }
-
+.border-btn-primary {
+  @apply text-primary w-fit;
+  padding: 6px 20px;
+  border: none;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: transparent;
+  border: 2px solid var(--color-primary);
+}
 .faq-row {
   @apply bg-primary rounded-xl mb-4;
 }

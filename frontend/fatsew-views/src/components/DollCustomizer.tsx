@@ -2,10 +2,15 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const DollCustomizer = () => {
+  const [activeTab, setActiveTab] = useState("body");
   const [dolls, setDolls] = useState([]);
   const [selectedDoll, setSelectedDoll] = useState(null);
   const [customization, setCustomization] = useState({
-    body: { type: "", image: "", price: 0 },
+    body: {
+      type: "white",
+      image: "http://localhost:3000/images/bodies/white_body.png",
+      price: 5,
+    },
     hair: { type: "", image: "", price: 0 },
     top: { type: "", image: "", price: 0 },
     bottom: { type: "", image: "", price: 0 },
@@ -13,24 +18,24 @@ const DollCustomizer = () => {
   });
   const [totalPrice, setTotalPrice] = useState(0);
   const [dollPreview, setDollPreview] = useState({
-    body: "",
+    body: "http://localhost:3000/images/bodies/white_body.png",
     hair: "",
     top: "",
     bottom: "",
     shoes: "",
   });
 
-  // Sample options data - in a real app, this might come from an API
+  // Sample options data
   const options = {
     body: [
       {
-        type: "black",
-        image: "http://localhost:3000/images/bodies/black_body.png",
+        type: "white",
+        image: "http://localhost:3000/images/bodies/white_body.png",
         price: 5,
       },
       {
-        type: "white",
-        image: "http://localhost:3000/images/bodies/white_body.png",
+        type: "black",
+        image: "http://localhost:3000/images/bodies/black_body.png",
         price: 5,
       },
     ],
@@ -82,15 +87,22 @@ const DollCustomizer = () => {
     fetchDolls();
   }, []);
 
+  // Calculate total price whenever customization changes
+  useEffect(() => {
+    const newTotal = Object.values(customization).reduce(
+      (sum, item) => sum + item.price,
+      0
+    );
+    setTotalPrice(newTotal);
+  }, [customization]);
+
   // Load a doll for editing
   const loadDollForEdit = (doll) => {
     setSelectedDoll(doll);
-
-    // Convert image paths to full backend URLs
     const backendUrl = "http://localhost:3000";
     const customize = doll.customize;
 
-    setCustomization({
+    const newCustomization = {
       body: {
         ...customize.body[0],
         image: customize.body[0]?.image
@@ -121,9 +133,9 @@ const DollCustomizer = () => {
           ? `${backendUrl}${customize.shoes.image}`
           : "",
       },
-    });
+    };
 
-    // setTotalPrice(doll.totalPrice);
+    setCustomization(newCustomization);
     updateDollPreview({
       body: customize.body[0]?.image
         ? `${backendUrl}${customize.body[0].image}`
@@ -147,7 +159,6 @@ const DollCustomizer = () => {
       ...prev,
       [category]: option,
     }));
-    // setTotalPrice((prev) => prev - prev[category].price + option.price);
     updateDollPreview({ [category]: option.image });
   };
 
@@ -222,117 +233,107 @@ const DollCustomizer = () => {
   };
 
   return (
-    <div className="doll-customizer">
-      <h1>Custom Doll Creator</h1>
+    <div className="doll-customizer p-4 max-w-4xl mx-auto">
+      <h1 className="text-2xl font-bold mb-6">Design &gt; Product Overview</h1>
 
-      <div className="customization-container">
-        <div className="customization-form">
-          <h2>{selectedDoll ? "Edit Doll" : "Create New Doll"}</h2>
-
-          {Object.keys(options).map((category) => (
-            <div className="category" key={category}>
-              <h3>{category.charAt(0).toUpperCase() + category.slice(1)}</h3>
-              <select
-                value={customization[category].type}
-                onChange={(e) => {
-                  const selectedOption = options[category].find(
-                    (opt) => opt.type === e.target.value
-                  );
-                  if (selectedOption) {
-                    handleCustomizationChange(category, selectedOption);
-                  }
-                }}
+      <div className="flex flex-col md:flex-row gap-6">
+        {/* Customization Panel */}
+        <div className="w-full md:w-1/2 bg-gray-100 p-4 rounded-lg">
+          {/* Category Tabs */}
+          <div className="flex mb-4 border-b">
+            {["body", "hair", "top", "bottom", "shoes"].map((category) => (
+              <button
+                key={category}
+                className={`px-4 py-2 font-medium ${
+                  activeTab === category
+                    ? "border-b-2 border-blue-500 text-blue-600"
+                    : "text-gray-600"
+                }`}
+                onClick={() => setActiveTab(category)}
               >
-                <option value="">Select {category}</option>
-                {options[category].map((option) => (
-                  <option key={option.type} value={option.type}>
-                    {option.type} (${option.price})
-                  </option>
-                ))}
-              </select>
-              {customization[category].image && (
-                <div className="option-preview">
-                  <img
-                    src={customization[category].image}
-                    alt={customization[category].type}
-                    style={{ maxWidth: "100px", maxHeight: "100px" }}
-                  />
+                {category.charAt(0).toUpperCase() + category.slice(1)}
+              </button>
+            ))}
+          </div>
+
+          {/* Options Grid */}
+          <div className="grid grid-cols-3 gap-3">
+            {options[activeTab].map((option) => (
+              <div
+                key={option.type}
+                className={`p-2 border rounded cursor-pointer ${
+                  customization[activeTab].type === option.type
+                    ? "border-blue-500 bg-blue-50"
+                    : "border-gray-200 hover:border-gray-400"
+                }`}
+                onClick={() => handleCustomizationChange(activeTab, option)}
+              >
+                <img
+                  src={option.image}
+                  alt={option.type}
+                  className="w-full h-16 object-contain mb-1"
+                />
+                <div className="text-sm text-center">
+                  {option.type} (${option.price})
                 </div>
-              )}
+              </div>
+            ))}
+          </div>
+
+          {/* Price and Navigation */}
+          <div className="mt-6 flex justify-between items-center">
+            <div className="text-lg font-semibold">
+              Price: ${totalPrice.toFixed(2)}
             </div>
-          ))}
-
-          {/* <div className="total-price">
-            <h3>Total Price: ${totalPrice}</h3>
-          </div> */}
-
-          <button onClick={saveDoll}>Save Doll</button>
-          {selectedDoll && <button onClick={resetForm}>Cancel</button>}
+            <button
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+              onClick={saveDoll}
+            >
+              Next &gt;
+            </button>
+          </div>
         </div>
 
-        <div className="doll-preview">
-          <h2>Doll Preview</h2>
-          <div className="preview-container flex  justify-center">
+        {/* Doll Preview */}
+        <div className="w-full md:w-1/2 flex flex-col items-center">
+          <div className="relative w-64 h-96 mb-4">
             {dollPreview.body && (
               <img
                 src={dollPreview.body}
                 alt="Body"
-                className="preview-layer"
+                className="absolute w-full h-full object-contain"
               />
             )}
             {dollPreview.hair && (
               <img
                 src={dollPreview.hair}
                 alt="Hair"
-                className=" w-36 absolute mt-4 "
+                className="absolute w-24 h-24 object-contain left-20"
               />
             )}
             {dollPreview.top && (
               <img
                 src={dollPreview.top}
                 alt="Top"
-                className="w-36 h-24 absolute top-28 mt-2"
+                className="absolute w-32 h-36 object-contain left-16 top-20"
               />
             )}
             {dollPreview.bottom && (
               <img
                 src={dollPreview.bottom}
                 alt="Bottom"
-                className="w-28 h-36 absolute top-48 ml-5"
+                className="absolute w-40 h-40 object-contain left-14 top-44 "
               />
             )}
             {dollPreview.shoes && (
               <img
                 src={dollPreview.shoes}
                 alt="Shoes"
-                className="w-20 absolute top-[325px] ml-2 mt-1"
+                className="absolute w-20 h-20 object-contain left-[90px] top-[310px]"
               />
             )}
           </div>
         </div>
-      </div>
-
-      <div className="doll-list">
-        <h2>Saved Dolls</h2>
-        <ul>
-          {dolls.map((doll) => (
-            <li key={doll._id}>
-              <div>
-                <strong>ID:</strong> {doll._id} |<strong>Price:</strong> $
-                {doll.totalPrice}
-              </div>
-              <div className="doll-thumbnail">
-                {doll.customize.body[0]?.image && (
-                  <img src={doll.customize.body[0].image} alt="Body" />
-                )}
-              </div>
-              <div>
-                <button onClick={() => loadDollForEdit(doll)}>Edit</button>
-                <button onClick={() => deleteDoll(doll._id)}>Delete</button>
-              </div>
-            </li>
-          ))}
-        </ul>
       </div>
     </div>
   );

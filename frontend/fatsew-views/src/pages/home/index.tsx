@@ -28,10 +28,6 @@ const Home = () => {
         </div>
       </section>
       <WhyUsSection />
-      <div className="py-10">
-        {" "}
-        <SearchInput />
-      </div>
 
       <section className="w-full flex justify-center">
         <FAQ />

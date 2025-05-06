@@ -3,7 +3,7 @@ import Button from "./Button";
 
 const SearchInput = () => {
   return (
-    <form className="max-w-md mx-auto relative">
+    <form className="max-w-md  relative">
       <label
         htmlFor="default-search"
         className="mb-2 text-sm font-medium text-gray-900 sr-only"
@@ -34,14 +34,14 @@ const SearchInput = () => {
         <input
           type="search"
           id="default-search"
-          className="block w-full py-2.5 ps-10 pr-28 text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-200 focus:ring-blue-500 focus:border-blue-500"
+          className="block w-full py-2.5 ps-10 pr-28 text-sm text-gray-900 rounded-full bg-gray-100 focus:ring-blue-500 focus:border-blue-500"
           placeholder="Search..."
           required
         />
 
         {/* Button inside input */}
         <div className="absolute inset-y-0 end-1 flex items-center">
-          <Button title="Search" variant="primary-btn " />
+          <Button title="Search" variant="secondary-btn " />
         </div>
       </div>
     </form>

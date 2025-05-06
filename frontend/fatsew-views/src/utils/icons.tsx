@@ -6,4 +6,6 @@ export const icons = {
   customization: "/icons/customization.svg",
   unique: "/icons/unique.svg",
   affordable: "/icons/affordable.svg",
+  filled_heart: "/icons/filled-heart.svg",
+  stroke_heart: "/icons/stroke-heart.svg",
 };
