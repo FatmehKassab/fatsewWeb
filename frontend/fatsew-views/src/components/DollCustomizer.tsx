@@ -4,7 +4,7 @@ import axios from "axios";
 const DollCustomizer = () => {
   const [activeTab, setActiveTab] = useState("body");
   const [dolls, setDolls] = useState([]);
-  const [selectedDoll, setSelectedDoll] = useState(null);
+
   const [customization, setCustomization] = useState({
     body: {
       type: "white",
@@ -25,7 +25,6 @@ const DollCustomizer = () => {
     shoes: "",
   });
 
-  // Sample options data
   const options = {
     body: [
       {
@@ -78,7 +77,7 @@ const DollCustomizer = () => {
   useEffect(() => {
     const fetchDolls = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/dolls");
+        const response = await axios.get("http://localhost:3000/api/doll");
         setDolls(response.data);
       } catch (error) {
         console.error("Error fetching dolls:", error);
@@ -95,63 +94,6 @@ const DollCustomizer = () => {
     );
     setTotalPrice(newTotal);
   }, [customization]);
-
-  // Load a doll for editing
-  const loadDollForEdit = (doll) => {
-    setSelectedDoll(doll);
-    const backendUrl = "http://localhost:3000";
-    const customize = doll.customize;
-
-    const newCustomization = {
-      body: {
-        ...customize.body[0],
-        image: customize.body[0]?.image
-          ? `${backendUrl}${customize.body[0].image}`
-          : "",
-      },
-      hair: {
-        ...customize.hair[0],
-        image: customize.hair[0]?.image
-          ? `${backendUrl}${customize.hair[0].image}`
-          : "",
-      },
-      top: {
-        ...customize.top,
-        image: customize.top?.image
-          ? `${backendUrl}${customize.top.image}`
-          : "",
-      },
-      bottom: {
-        ...customize.bottom,
-        image: customize.bottom?.image
-          ? `${backendUrl}${customize.bottom.image}`
-          : "",
-      },
-      shoes: {
-        ...customize.shoes,
-        image: customize.shoes?.image
-          ? `${backendUrl}${customize.shoes.image}`
-          : "",
-      },
-    };
-
-    setCustomization(newCustomization);
-    updateDollPreview({
-      body: customize.body[0]?.image
-        ? `${backendUrl}${customize.body[0].image}`
-        : "",
-      hair: customize.hair[0]?.image
-        ? `${backendUrl}${customize.hair[0].image}`
-        : "",
-      top: customize.top?.image ? `${backendUrl}${customize.top.image}` : "",
-      bottom: customize.bottom?.image
-        ? `${backendUrl}${customize.bottom.image}`
-        : "",
-      shoes: customize.shoes?.image
-        ? `${backendUrl}${customize.shoes.image}`
-        : "",
-    });
-  };
 
   // Handle customization change
   const handleCustomizationChange = (category, option) => {
@@ -170,68 +112,6 @@ const DollCustomizer = () => {
     }));
   };
 
-  // Save doll
-  const saveDoll = async () => {
-    const dollData = {
-      totalPrice,
-      customize: {
-        body: [customization.body],
-        hair: [customization.hair],
-        top: customization.top,
-        bottom: customization.bottom,
-        shoes: customization.shoes,
-      },
-    };
-
-    try {
-      if (selectedDoll) {
-        await axios.patch(
-          `http://localhost:3000/api/dolls/${selectedDoll._id}`,
-          dollData
-        );
-      } else {
-        await axios.post("http://localhost:3000/api/dolls", dollData);
-      }
-      // Refresh the list
-      const response = await axios.get("http://localhost:3000/api/dolls");
-      setDolls(response.data);
-      resetForm();
-    } catch (error) {
-      console.error("Error saving doll:", error);
-    }
-  };
-
-  // Reset form
-  const resetForm = () => {
-    setSelectedDoll(null);
-    setCustomization({
-      body: { type: "", image: "", price: 0 },
-      hair: { type: "", image: "", price: 0 },
-      top: { type: "", image: "", price: 0 },
-      bottom: { type: "", image: "", price: 0 },
-      shoes: { type: "", image: "", price: 0 },
-    });
-    setTotalPrice(0);
-    setDollPreview({
-      body: "",
-      hair: "",
-      top: "",
-      bottom: "",
-      shoes: "",
-    });
-  };
-
-  // Delete doll
-  const deleteDoll = async (id) => {
-    try {
-      await axios.delete(`http://localhost:3000/api/dolls/${id}`);
-      const response = await axios.get("http://localhost:3000/api/dolls");
-      setDolls(response.data);
-    } catch (error) {
-      console.error("Error deleting doll:", error);
-    }
-  };
-
   return (
     <div className="doll-customizer p-4 max-w-4xl mx-auto">
       <h1 className="text-2xl font-bold mb-6">Design &gt; Product Overview</h1>
@@ -240,19 +120,19 @@ const DollCustomizer = () => {
         {/* Customization Panel */}
         <div className="w-full md:w-1/2 bg-gray-100 p-4 rounded-lg">
           {/* Category Tabs */}
-          <div className="flex mb-4 border-b">
+          <div className="flex mb-4 ">
             {["body", "hair", "top", "bottom", "shoes"].map((category) => (
-              <button
+              <div
                 key={category}
                 className={`px-4 py-2 font-medium ${
                   activeTab === category
-                    ? "border-b-2 border-blue-500 text-blue-600"
-                    : "text-gray-600"
+                    ? "bg-secondary text-white"
+                    : "bg-white border-secondary border-2 text-secondary"
                 }`}
                 onClick={() => setActiveTab(category)}
               >
                 {category.charAt(0).toUpperCase() + category.slice(1)}
-              </button>
+              </div>
             ))}
           </div>
 
@@ -285,12 +165,6 @@ const DollCustomizer = () => {
             <div className="text-lg font-semibold">
               Price: ${totalPrice.toFixed(2)}
             </div>
-            <button
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-              onClick={saveDoll}
-            >
-              Next &gt;
-            </button>
           </div>
         </div>
 

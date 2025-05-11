@@ -1,8 +1,5 @@
 const User = require('../models/userModel');
 
-// @desc    Get all users
-// @route   GET /api/users
-// @access  Public
 exports.getUsers = async (req, res) => {
   try {
     const users = await User.find().select('-password');
@@ -13,9 +10,7 @@ exports.getUsers = async (req, res) => {
   }
 };
 
-// @desc    Get single user
-// @route   GET /api/users/:id
-// @access  Public
+
 exports.getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id).select('-password');
@@ -34,9 +29,7 @@ exports.getUserById = async (req, res) => {
   }
 };
 
-// @desc    Create a user
-// @route   POST /api/users
-// @access  Public
+
 exports.createUser = async (req, res) => {
   const { name, email, password, phoneNo, addresses } = req.body;
 
@@ -47,7 +40,7 @@ exports.createUser = async (req, res) => {
       return res.status(400).json({ errors: [{ msg: 'User already exists' }] });
     }
 
-    // Create new user
+
     user = new User({
       name,
       email,

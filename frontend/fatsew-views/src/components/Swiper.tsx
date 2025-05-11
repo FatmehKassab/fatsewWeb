@@ -28,7 +28,7 @@ export default function Swiper() {
   const settings = {
     dots: false,
     infinite: true,
-    slidesToShow: 1.5,
+    slidesToShow: 1.2,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
@@ -41,8 +41,8 @@ export default function Swiper() {
   };
 
   return (
-    <section className="w-full h-auto flex items-center py-10  bg-yellow-700">
-      <div className=" bg-blue-500 w-[40%] ">
+    <section className="w-full h-auto flex items-center py-10  ">
+      <div className="  w-[40%] ">
         <Slider {...settings}>
           {testimonials.map((item, index) => (
             <div key={index} className="">
