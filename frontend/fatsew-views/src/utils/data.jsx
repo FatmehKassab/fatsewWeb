@@ -10,6 +10,7 @@ export const FooterLinks = [
   { href: "/", label: "Privacy & Policy" },
   { href: "/about", label: "Terms & Conditions" },
   { href: "/shop", label: "FAQ" },
+  { href: "/atozindex", label: "A to Z index" },
 ];
 
 export const WhyUs = [
@@ -91,3 +92,13 @@ export const pricingPlans = [
   },
 ];
 
+
+export const aToZData = [
+  { name: "Acrylic Yarn", link: "" },
+  { name: "Amigurumi", link: "" },
+  { name: "Beanie", link: "/shop" },
+  { name: "Customize", link: "/customize" },
+  { name: "Plushies", link: "/shop" },
+  { name: "Keychain", link: "/shop" },
+
+];

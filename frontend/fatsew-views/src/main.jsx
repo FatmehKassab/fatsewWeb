@@ -15,6 +15,7 @@ import { Toaster } from "./components/ui/toaster.jsx";
 import Checkout from "./pages/checkout/index.jsx";
 import FeaturesPage from "./pages/app/index.jsx";
 import UnauthPage from "./pages/unauth-page/index.jsx";
+import AtoZ from "./pages/atozindex/index.jsx";
 
 
 function MainRouter() {
@@ -29,6 +30,7 @@ function MainRouter() {
     <Routes>
       <Route index element={<App />} />
       <Route path="/shop" element={<Shop />} />
+          <Route path="/atozindex" element={<AtoZ />} />
       <Route path="/customize" element={<Customize />} />
   <Route path="/unauth-page" element={<UnauthPage />} />
 
