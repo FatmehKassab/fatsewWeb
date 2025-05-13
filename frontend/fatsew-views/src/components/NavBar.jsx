@@ -74,7 +74,7 @@ const NavBar = () => {
       )}
 
       <div className="bg-white flex items-center justify-between rounded-xl mx-auto pl-2 pr-6">
-        <Link to="/home">
+        <Link to="/">
           <img src={IMAGES.logo} className="w-32 h-24" alt="Logo" />
         </Link>
 
