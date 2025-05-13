@@ -39,70 +39,8 @@ export const loginFormControls = [
   },
 ];
 
-export const addProductFormElements = [
-  {
-    label: "Title",
-    name: "title",
-    componentType: "input",
-    type: "text",
-    placeholder: "Enter product title",
-  },
-  {
-    label: "Description",
-    name: "description",
-    componentType: "textarea",
-    placeholder: "Enter product description",
-  },
-  {
-    label: "Category",
-    name: "category",
-    componentType: "select",
-    options :[
-  { id: "clothes", label: "Clothes" },
-  { id: "plushies", label: "Plushies" },
-  { id: "keychain", label: "Keychain" },
-  { id: "bags", label: "Bags" },
-  { id: "amigurumi", label: "Amigurumi" },
-  { id: "beanies", label: "Beanies" },
-  { id: "scarves", label: "Scarves" },
-]
 
-  },
 
-  {
-    label: "Price",
-    name: "price",
-    componentType: "input",
-    type: "number",
-    placeholder: "Enter product price",
-  },
-
-  {
-    label: "Total Stock",
-    name: "totalStock",
-    componentType: "input",
-    type: "number",
-    placeholder: "Enter total stock",
-  },
-];
-
-export const shoppingViewHeaderMenuItems = [
-  {
-    id: "home",
-    label: "Home",
-    path: "/shop/home",
-  },
-  {
-    id: "products",
-    label: "Products",
-    path: "/shop/listing",
-  },
-  {
-    id: "search",
-    label: "Search",
-    path: "/shop/search",
-  },
-];
 
 export const categoryOptionsMap = {
   clothes: "Clothes",
