@@ -1,7 +1,7 @@
 import React from "react";
 import { IMAGES } from "../utils/images";
 import { icons } from "../utils/icons";
-import Button from "./CustomButton";
+import Button from "./Button";
 
 const ProductCard = ({ data }) => {
   return (

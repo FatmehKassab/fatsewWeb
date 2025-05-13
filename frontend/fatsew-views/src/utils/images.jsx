@@ -16,4 +16,6 @@ export const IMAGES = {
   review: "/images/review.JPG",
   shrug: "/images/shrug.JPG",
   sweater: "/images/sweater.JPG",
+  cats: "/images/cats.png",
+  google: "/images/google.png",
 };

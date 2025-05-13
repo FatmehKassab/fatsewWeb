@@ -5,11 +5,11 @@ function StarRatingComponent({ rating, handleRatingChange }) {
   console.log(rating, "rating");
 
   return [1, 2, 3, 4, 5].map((star) => (
-    <Button
+    <div
       className={`p-2 rounded-full transition-colors ${
         star <= rating
-          ? "text-yellow-500 hover:bg-black"
-          : "text-black hover:bg-primary hover:text-primary-foreground"
+          ? "text-yellow-500 hover:bg-textGrey"
+          : "text-textGrey hover:bg-primary hover:text-primary-foreground"
       }`}
       variant="outline"
       size="icon"
@@ -17,10 +17,10 @@ function StarRatingComponent({ rating, handleRatingChange }) {
     >
       <StarIcon
         className={`w-6 h-6 ${
-          star <= rating ? "fill-yellow-500" : "fill-black"
+          star <= rating ? "fill-yellow-500" : "fill-textGrey"
         }`}
       />
-    </Button>
+    </div>
   ));
 }
 

@@ -72,7 +72,7 @@ function UserCartItemsContent({ cartItem }) {
   }
 
   return (
-    <div className="flex items-center space-x-4">
+    <div className="flex items-center space-x-4 text-textGrey">
       <img
         src={cartItem?.image}
         alt={cartItem?.title}
@@ -80,27 +80,25 @@ function UserCartItemsContent({ cartItem }) {
       />
       <div className="flex-1">
         <h3 className="font-extrabold">{cartItem?.title}</h3>
-        <div className="flex items-center gap-2 mt-1">
-          <Button
-            variant="outline"
-            className="h-8 w-8 rounded-full"
-            size="icon"
+        <div className="flex items-center  gap-2 mt-1">
+          <div
+         
+            className="h-5 w-5 bg-primary rounded-full"
+       
             disabled={cartItem?.quantity === 1}
             onClick={() => handleUpdateQuantity(cartItem, "minus")}
           >
-            <Minus className="w-4 h-4" />
+            <Minus className="w-4 h-4 m-auto mt-0.5 text-white" />
             <span className="sr-only">Decrease</span>
-          </Button>
+          </div>
           <span className="font-semibold">{cartItem?.quantity}</span>
-          <Button
-            variant="outline"
-            className="h-8 w-8 rounded-full"
-            size="icon"
+          <div
+              className="h-5 w-5 bg-primary rounded-full"
             onClick={() => handleUpdateQuantity(cartItem, "plus")}
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-4 h-4 m-auto mt-0.5 text-white" />
             <span className="sr-only">Decrease</span>
-          </Button>
+          </div>
         </div>
       </div>
       <div className="flex flex-col items-end">

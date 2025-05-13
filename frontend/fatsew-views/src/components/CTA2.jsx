@@ -1,4 +1,4 @@
-import Button from "./CustomButton";
+import Button from "./Button";
 import React from "react";
 const CTA2 = () => {
   return (

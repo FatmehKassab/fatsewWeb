@@ -1,4 +1,4 @@
-import { Button } from "./ui/button";
+import  Button  from "./Button";
 import { Card, CardContent, CardFooter } from "./ui/card";
 import { Label } from "./ui/label";
 import React from "react";
@@ -16,7 +16,7 @@ function AddressCard({
           ? () => setCurrentSelectedAddress(addressInfo)
           : null
       }
-      className={`cursor-pointer border-red-700 ${
+      className={`cursor-pointer border-red-700 text-textGrey ${
         selectedId?._id === addressInfo?._id
           ? "border-red-900 border-[4px]"
           : "border-black"
@@ -30,8 +30,22 @@ function AddressCard({
         <Label>Notes: {addressInfo?.notes}</Label>
       </CardContent>
       <CardFooter className="p-3 flex justify-between">
-        <Button onClick={() => handleEditAddress(addressInfo)}>Edit</Button>
-        <Button onClick={() => handleDeleteAddress(addressInfo)}>Delete</Button>
+         <Button
+       onClick={() => handleEditAddress(addressInfo)}
+       
+        variant="primary-btn"
+        title=" edit"
+      />
+       <Button
+     onClick={() => handleDeleteAddress(addressInfo)}
+       
+        variant="border-btn-primary"
+        title="delete"
+      />
+       
+      
+      
+       
       </CardFooter>
     </Card>
   );

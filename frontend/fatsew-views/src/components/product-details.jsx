@@ -1,6 +1,6 @@
 import { StarIcon } from "lucide-react";
 import { Avatar, AvatarFallback } from "./ui/avatar";
-import { Button } from "./ui/button";
+import  Button  from "./Button";
 import { Dialog, DialogContent } from "./ui/dialog";
 import { Separator } from "./ui/separator";
 import { Input } from "./ui/input";
@@ -98,11 +98,6 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
 
   console.log(reviews, "reviews");
 
-  const averageReview =
-    reviews && reviews.length > 0
-      ? reviews.reduce((sum, reviewItem) => sum + reviewItem.reviewValue, 0) /
-        reviews.length
-      : 0;
 
   return (
     <Dialog open={open} onOpenChange={handleDialogClose}>
@@ -116,13 +111,17 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
             className="aspect-square w-full object-cover"
           />
         </div>
-        <div className="">
-          <div>
+        <div className="text-textGrey">
+          <div className="flex justify-between">
             <h1 className="text-3xl font-extrabold">{productDetails?.title}</h1>
-            <p className="text-muted-foreground text-2xl mb-5 mt-4">
+             <div className="flex items-center gap-0.5">
+              <StarRatingComponent rating={productDetails?.averageReview} />
+            </div>
+           
+          </div>
+           <p className="text-muted-foreground text-2xl mb-5 mt-4">
               {productDetails?.description}
             </p>
-          </div>
           <div className="flex items-center justify-between">
             <p
               className={`text-3xl font-bold text-primary ${
@@ -136,36 +135,34 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                 ${productDetails?.salePrice}
               </p>
             ) : null}
-          </div>
-          <div className="flex items-center gap-2 mt-2">
-            <div className="flex items-center gap-0.5">
-              <StarRatingComponent rating={averageReview} />
-            </div>
-            <span className="text-muted-foreground">
-              ({averageReview.toFixed(2)})
-            </span>
-          </div>
-          <div className="mt-5 mb-5">
+              <div className="mt-5 mb-5">
             {productDetails?.totalStock === 0 ? (
               <Button className="w-full opacity-60 cursor-not-allowed">
                 Out of Stock
               </Button>
             ) : (
-              <Button
-                className="w-full"
-                onClick={() =>
+                <Button
+            onClick={() =>
                   handleAddToCart(
                     productDetails?._id,
                     productDetails?.totalStock
                   )
                 }
-              >
-                Add to Cart
-              </Button>
+            title="Add to Cart"
+            variant="primary-btn"
+          />
+        
+         
             )}
           </div>
+          </div>
+       
+           
+          
+       
+        
           <Separator />
-          <div className="max-h-[300px] overflow-auto">
+          <div className="max-h-[300px] overflow-y-auto">
             <h2 className="text-xl font-bold mb-4">Reviews</h2>
             <div className="grid gap-6">
               {reviews && reviews.length > 0 ? (
@@ -207,12 +204,18 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                 onChange={(event) => setReviewMsg(event.target.value)}
                 placeholder="Write a review..."
               />
-              <Button
+              <div className=" w-[98%] flex justify-end"> 
+                <div className="w-fit">
+                <Button
+              title={"submit"}
                 onClick={handleAddReview}
                 disabled={reviewMsg.trim() === ""}
-              >
-                Submit
-              </Button>
+                 variant="primary-btn"
+              />
+              </div></div>
+             
+              
+           
             </div>
           </div>
         </div>

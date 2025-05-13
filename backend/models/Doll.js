@@ -1,11 +1,7 @@
 const mongoose = require('mongoose');
 
 const dollSchema = new mongoose.Schema({
-  totalPrice: {
-    type: Number,
-    required: true
-  },
-  customize: {
+
     body: [
       {
         type: String,
@@ -35,7 +31,7 @@ const dollSchema = new mongoose.Schema({
       image: String,
       price: Number
     }
-  }
+  
 });
 
 module.exports = mongoose.model('Doll', dollSchema);

@@ -1,39 +1,45 @@
 import { filterOptions } from "../../config";
 import { Fragment } from "react";
-import { Label } from "./ui/label";
-import { Checkbox } from "./ui/checkbox";
-import { Separator } from "./ui/separator";
 import React from "react";
+
 function ProductFilter({ filters, handleFilter }) {
   return (
-    <div className="bg-background rounded-lg shadow-sm">
-      
-      <div className="p-4 space-y-4">
-        {Object.keys(filterOptions).map((keyItem) => (
-          <Fragment>
-            <div>
-              <h3 className="text-base font-bold">{keyItem}</h3>
-              <div className="flex gap-2 mt-2">
-                {filterOptions[keyItem].map((option) => (
-                  <Label className="flex font-medium items-center gap-2 ">
-                    <Checkbox
-                      checked={
-                        filters &&
-                        Object.keys(filters).length > 0 &&
-                        filters[keyItem] &&
-                        filters[keyItem].indexOf(option.id) > -1
-                      }
-                      onCheckedChange={() => handleFilter(keyItem, option.id)}
-                    />
+    <div className="py-4 space-y-2">
+      {Object.keys(filterOptions).map((keyItem) => (
+        <Fragment key={keyItem}>
+    
+          
+           <div className="flex flex-wrap gap-2 lg:gap-3 items-center">
+             <span className="text-textGrey">Categories:</span>
+              {filterOptions[keyItem].map((option) => {
+                const isActive =
+                  filters &&
+                  filters[keyItem] &&
+                  filters[keyItem].includes(option.id);
+
+                return (
+                  <div
+                    key={option.id}
+                    onClick={() => handleFilter(keyItem, option.id)}
+                    className={`px-4 py-1 rounded-md cursor-pointer text-sm font-semibold border-2 transition-colors
+                      ${
+                        isActive
+                          ? "bg-secondary text-white border-secondary"
+                          : "bg-white text-secondary border-secondary hover:bg-secondary hover:text-white"
+                      }`}
+                  >
                     {option.label}
-                  </Label>
-                ))}
-              </div>
+                  </div>
+                );
+              })}
             </div>
-            <Separator />
-          </Fragment>
-        ))}
-      </div>
+        <span className="text-textGrey">
+     Shop and Customize: Find Your Perfect Crochet Piece or Create
+           Something Uniquely Yours!
+          </span>
+         
+        </Fragment>
+      ))}
     </div>
   );
 }

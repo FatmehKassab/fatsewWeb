@@ -13,24 +13,24 @@ const addProductReview = async (req, res) => {
       // orderStatus: "confirmed" || "delivered",
     });
 
-    if (!order) {
-      return res.status(403).json({
-        success: false,
-        message: "You need to purchase product to review it.",
-      });
-    }
+    // if (!order) {
+    //   return res.status(403).json({
+    //     success: false,
+    //     message: "You need to purchase product to review it.",
+    //   });
+    // }
 
-    const checkExistinfReview = await ProductReview.findOne({
-      productId,
-      userId,
-    });
+    // const checkExistinfReview = await ProductReview.findOne({
+    //   productId,
+    //   userId,
+    // });
 
-    if (checkExistinfReview) {
-      return res.status(400).json({
-        success: false,
-        message: "You already reviewed this product!",
-      });
-    }
+    // if (checkExistinfReview) {
+    //   return res.status(400).json({
+    //     success: false,
+    //     message: "You already reviewed this product!",
+    //   });
+    // }
 
     const newReview = new ProductReview({
       productId,

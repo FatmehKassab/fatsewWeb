@@ -1,4 +1,4 @@
-const Doll = require('../models/dollModel');
+const Doll = require('../models/Doll');
 
 // Get all dolls
 exports.getAllDolls = async (req, res) => {

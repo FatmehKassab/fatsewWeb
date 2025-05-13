@@ -101,25 +101,17 @@ const NavBar = () => {
         <div className={`w-fit ${isScrolled ? "hidden md:block" : "hidden"}`}>
           {!isAuthenticated ? (
             <Button title="sign in" variant="primary-btn" onClick={"j"} />
-          ) : (
-
-            <Button
-              title="log out"
-              variant="secondary-btn"
-              onClick={handleLogout}
-            />
-          )}
+          ) : ""}
         </div>
 
-{isAuthenticated &&  <div className="">
+{isAuthenticated &&  <div className="flex items-center justify-center gap-2">
       <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)}>
         <div
           onClick={() => setOpenCartSheet(true)}
-       
           className="relative bg-white"
         >
-          <ShoppingCart className="w-10 h-10" />
-          <span className="absolute top-[-5px] right-[2px] font-bold text-sm">
+          <ShoppingCart className="w-8 h-8 text-textGrey" />
+          <span className="absolute top-[-5px] -right-[4px] font-bold text-sm bg-primary px-1 rounded-full text-white">
             {cartItems?.items?.length || 0}
           </span>
           <span className="sr-only">User cart</span>
@@ -133,6 +125,11 @@ const NavBar = () => {
           }
         />
       </Sheet>
+       <Button
+              title="log out"
+              variant="secondary-btn"
+              onClick={handleLogout}
+            />
    </div> }
         
       {/* <DropdownMenu>

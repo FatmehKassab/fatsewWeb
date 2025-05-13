@@ -7,6 +7,10 @@ import { createNewOrder } from "../../store/shop/order-slice";
 import { Navigate } from "react-router-dom";
 import { useToast } from "../../components/ui/use-toast";
 import React from "react";
+import { IMAGES } from "../../utils/images";
+import NavBar from "../../components/NavBar";
+import CTA2 from "../../components/CTA2";
+import Footer from "../../components/Footer";
 function Checkout() {
   const { cartItems } = useSelector((state) => state.shopCart);
   const { user } = useSelector((state) => state.auth);
@@ -23,9 +27,7 @@ function Checkout() {
       ? cartItems.items.reduce(
           (sum, currentItem) =>
             sum +
-            (currentItem?.salePrice > 0
-              ? currentItem?.salePrice
-              : currentItem?.price) *
+            ( currentItem?.price) *
               currentItem?.quantity,
           0
         )
@@ -70,23 +72,17 @@ function Checkout() {
         phone: currentSelectedAddress?.phone,
         notes: currentSelectedAddress?.notes,
       },
-      orderStatus: "pending",
-      paymentMethod: "cash",
-      paymentStatus: "pending",
+
       totalAmount: totalCartAmount,
       orderDate: new Date(),
-      orderUpdateDate: new Date(),
-      paymentId: "",
-      payerId: "",
+  
+
     };
 
     dispatch(createNewOrder(orderData)).then((data) => {
-      console.log(data, "sangam");
-      if (data?.payload?.success) {
+ 
         setIsPaymemntStart(true);
-      } else {
-        setIsPaymemntStart(false);
-      }
+      
     });
   }
 
@@ -95,7 +91,28 @@ function Checkout() {
   }
 
   return (
-    <div className="flex flex-col">
+      <>
+          <section className="relative w-full h-[400px]">
+            <img
+              src={IMAGES.banner}
+              className="absolute w-full h-full object-cover"
+              alt="Banner"
+            />
+            <div className="absolute inset-0 bg-gradient-white z-1" />
+            <div className="absolute inset-0 flex flex-col items-center justify-between z-2 px-4">
+              <div className="w-full flex justify-center">
+                <NavBar />
+              </div>
+              <h1 className="absolute top-[60%] text-5xl text-white font-black uppercase">
+             Checkout
+              </h1>
+            </div>
+          </section>
+    
+          <section className="flex flex-col items-center gap-5 pb-10">
+          
+        <div className=" w-[80%]">
+             <div className="flex flex-col">
       
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-5 p-5">
         <Address
@@ -108,7 +125,7 @@ function Checkout() {
                 <UserCartItemsContent cartItem={item} />
               ))
             : null}
-          <div className="mt-8 space-y-4">
+          <div className="mt-8 space-y-4 text-textGrey">
             <div className="flex justify-between">
               <span className="font-bold">Total</span>
               <span className="font-bold">${totalCartAmount}</span>
@@ -124,6 +141,14 @@ function Checkout() {
         </div>
       </div>
     </div>
+        </div>
+              
+          </section>
+          <CTA2 />
+    
+          <Footer />
+        </>
+
   );
 }
 

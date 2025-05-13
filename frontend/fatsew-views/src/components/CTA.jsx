@@ -1,6 +1,6 @@
 import React from "react";
 import { IMAGES } from "../utils/images";
-import Button from "./CustomButton";
+import Button from "./Button";
 
 const CTA = () => {
   return (
