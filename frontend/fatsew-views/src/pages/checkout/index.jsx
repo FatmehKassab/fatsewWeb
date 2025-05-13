@@ -1,7 +1,7 @@
 import Address from "../../components/address";
 import { useDispatch, useSelector } from "react-redux";
 import UserCartItemsContent from "../../components/cart-items-content";
-import { Button } from "../../components/ui/button";
+import  Button  from "../../components/Button";
 import { useState } from "react";
 import { createNewOrder } from "../../store/shop/order-slice";
 import { Navigate } from "react-router-dom";
@@ -132,11 +132,17 @@ function Checkout() {
             </div>
           </div>
           <div className="mt-4 w-full">
-            <Button onClick={handleInitiatePaypalPayment} className="w-full">
-              {isPaymentStart
+            
+                   <Button
+                
+                  onClick={handleInitiatePaypalPayment}
+                    variant="primary-btn  w-full"
+                    title=   {isPaymentStart
                 ? "Processing Payment..."
                 : "Checkout"}
-            </Button>
+                  />
+                 
+           
           </div>
         </div>
       </div>

@@ -8,7 +8,7 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Textarea } from "../ui/textarea";
-import { Button } from "../ui/button";
+import  Button  from "../Button";
 import * as React from "react"
 function CommonForm({
   formControls,
@@ -118,9 +118,14 @@ function CommonForm({
           </div>
         ))}
       </div>
-      <Button disabled={isBtnDisabled} type="submit" className="mt-2 w-full">
-        {buttonText || "Submit"}
-      </Button>
+
+       <Button
+    
+       disabled={isBtnDisabled} type="submit"
+        variant="primary-btn mt-2 w-full"
+        title=  {buttonText || "Submit"}
+      />
+     
     </form>
   );
 }

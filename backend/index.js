@@ -23,7 +23,7 @@ const PORT = 3000;
 
 app.use(
   cors({
-    origin: "http://localhost:5174",
+    origin: "http://localhost:5173",
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: [
       "Content-Type",
@@ -50,28 +50,6 @@ app.use("/api/shop/review", shopReviewRouter);
 
 
 
-const customizationSchema = new mongoose.Schema({
-  category: String,
-  options: [
-    {
-      type: String,
-      image: String,
-      price: Number,
-    },
-  ],
-});
-
-const Customization = mongoose.model("Customization", customizationSchema);
-
-// Get customization options from DB
-app.get("/customize", async (req, res) => {
-  try {
-    const customizationOptions = await Customization.find();
-    res.json(customizationOptions);
-  } catch (err) {
-    res.status(500).send("Error fetching data");
-  }
-});
 app.use("/images", express.static("images"));
 app.get('/', (req, res) => res.send('Server is ready'));
 
